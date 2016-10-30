@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pocket</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+
+    <script>
+    $(document).ready(function(){
+        $('.materialboxed').materialbox();
+    });
+    </script>
+</head>
+<body>
+    <nav class="grey darken-2">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="#" class="brand-logo">Pocket</a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="sass.html">Source</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h4>Batches</h4>
+        {% for batch in batches %}
+        <div class="card-panel">
+            <h5 style="margin: 0">{{ batch.name }}</h5>
+
+            {% with batch.text_things as text_things %}
+                {% if text_things|length %}
+                    <table class="striped responsive-table">
+                        <thead>
+                            <th>Key</th>
+                            <th>Value</th>
+                        </thead>
+                        <tbody>
+                            {% for thing in text_things %}
+                            <tr><td>{{ thing.name }}</td><td>{{ thing.text }}</td>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+            {% endwith %}
+            {% with batch.image_things as image_things %}
+                {% if image_things|length %}
+                    <div class="row" style="margin-top: 20px">
+                        {% for thing in image_things %}
+                            <div class="col s12 m6 l4">
+                                <img src="{{ thing.file.url }}" class="responsive-img materialboxed" />
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
